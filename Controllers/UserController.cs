@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WeekOneWebApp.Models;
 using static WeekOneWebApp.QuoteGenerator.QuoteGenerator;
 
 namespace WeekOneWebApp.Controllers
@@ -9,6 +10,11 @@ namespace WeekOneWebApp.Controllers
     {
         // GET: UserController
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Details()
         {
             return View();
         }
@@ -23,16 +29,13 @@ namespace WeekOneWebApp.Controllers
         /// <param name="_age"></param>
         /// <param name="_occupation"></param>
         /// <returns></returns>
-        public IActionResult Result(int _yearOfBirth, string _quote, string _firstName, string _lastName, int _age, string _occupation)
+        public ActionResult Result(UserModel model)
         {
-            ViewBag.YearOfBirth = _yearOfBirth;
-            ViewBag.Quote = _quote;
-            ViewBag.FirstName = _firstName;
-            ViewBag.LastName = _lastName;
-            ViewBag.Age = _age;
-            ViewBag.Occupation = _occupation;
+            ViewBag.Quote = GetRandomQuote();
 
-            return View();
+            //UserModel model = new UserModel(_firstName, _lastName, _age, _occupation, _yearOfBirth);
+
+            return View(model);
         }
 
         /// <summary>
@@ -54,14 +57,13 @@ namespace WeekOneWebApp.Controllers
                     yearOfBirth = DateTime.Now.Year - age;
                 }
 
-                return RedirectToAction(nameof(Result), new {
-                    _yearOfBirth = yearOfBirth,
-                    _quote = GetRandomQuote(),
-                    _firstName = collection["FirstName"],
-                    _lastName = collection["LastName"],
-                    _age = age,
-                    _occupation = collection["Occupation"]
-                });
+                return RedirectToAction(nameof(Result), 
+                    new UserModel(collection["FirstName"], 
+                    collection["LastName"], 
+                    age, 
+                    collection["Occupation"], 
+                    yearOfBirth
+                    ));
             }
             catch
             {

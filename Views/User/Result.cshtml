@@ -1,4 +1,5 @@
-﻿
+﻿@model WeekOneWebApp.Models.UserModel
+
 @{
     ViewData["Title"] = "Result";
 }
@@ -6,13 +7,13 @@
 <h1>Result</h1>
 
 <p>
-    <strong>Estimated Year of Birth:</strong> @ViewBag.YearOfBirth
+    <strong>Estimated Year of Birth:</strong> @Model.YearOfBirth
 </p>
 <p>
     <strong>Random Quote:</strong> @ViewBag.Quote
 </p>
 <p>
-    <strong>Summary:</strong> @ViewBag.FirstName/@ViewBag.LastName, @ViewBag.Age. @ViewBag.Occupation.
+    <strong>Summary:</strong> @Model.FirstName/@Model.LastName, @Model.Age. @Model.Occupation.
 </p>
 
 <div>
