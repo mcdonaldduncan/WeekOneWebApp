@@ -14,11 +14,6 @@ namespace WeekOneWebApp.Controllers
             return View();
         }
 
-        public ActionResult Details()
-        {
-            return View();
-        }
-
         /// <summary>
         /// Assign ViewBag values and return view
         /// </summary>
